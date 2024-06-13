@@ -1,0 +1,205 @@
+/* Estilos gerais */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.content {
+    max-width: 1200px; /* ajuste conforme necessário */
+    width: 100%;
+}
+
+.logo_index {
+    width: 500px; /* Ajuste o tamanho conforme necessário */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.logo_reg {
+    width: 450px; /* Ajuste o tamanho conforme necessário */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    width: 100%;
+}
+
+button {
+    margin-top: 10px;
+}
+
+.mt-5 {
+    margin-top: 2rem !important;
+}
+
+button.button-voltar {
+    margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Estilos para o Dashboard */
+.chat-container {
+    display: flex;
+    height: 100vh;
+    width: 200%; /* Expande a largura da página */
+}
+
+.sidebar {
+    width: 25%;
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content {
+    width: 75%;
+    padding: 10px;
+}
+
+.chat-history {
+    height: 70vh;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.outgoing {
+    background-color: #0b93f6;
+    color: white;
+    text-align: right;
+    float: right;
+    clear: both;
+}
+
+.incoming {
+    background-color: #232323;
+    color: white;
+    text-align: left;
+    float: left;
+    clear: both;
+}
+
+.chat-controls {
+    display: flex;
+    padding: 10px;
+}
+
+.user-button {
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: 1px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s;
+}
+
+.user-button.online {
+    background-color: green;
+    color: white;
+}
+
+.user-button.offline {
+    background-color: red;
+    color: white;
+}
+
+.user-button:hover {
+    opacity: 0.8;
+}
+
+.participant-button {
+    padding: 5px 10px;
+    margin: 5px 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    display: inline-block;
+}
+
+.chat-button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-button:hover {
+    background-color: #0056b3;
+}
+
+.logout-button {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid red;
+    color: red;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: red;
+    color: white;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.mensagem-sucesso {
+    color: green;
+}
+.mensagem-erro {
+    color: red;
+}
+
+/* Estilos para a lista de utilizadores */
+#utilizadoresOnline ul, #utilizadoresOffline ul {
+    list-style: none; /* Remove as bolinhas padrão */
+    padding: 0;
+    margin: 0;
+}
+
+#utilizadoresOnline li {
+    color: green; /* Cor verde para indicar online */
+}
+
+#utilizadoresOffline li {
+    color: gray; /* Cor cinza para indicar offline */
+}

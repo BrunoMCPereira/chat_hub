@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - ChatHub</title>
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/estilos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="col-md-6 align-items-end">
+        <img src="/img/chathub.png" alt="ChatHub Logo" class="logo_reg">
+    </div>
+    <div class="container"></div>
+    <div class="col-md-4">
+    <h1 class="mt-5">Login</h1>
+        <form action="/login" method="POST" id="loginForm">
+            <div class="form-group">
+                <label for="nomeUtilizador">Nome de Utilizador</label>
+                <input type="text" class="form-control" id="nomeUtilizador" name="nomeUtilizador" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <!-- Mensagem de sucesso -->
+        <div th:if="${mensagem}" class="alert alert-success" role="alert">
+            <span th:text="${mensagem}"></span>
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <div class="container">
+            <a href="/" class="btn btn-secondary button-voltar">Voltar</a>
+        </div>
+    </div>
+</body>
+</html>

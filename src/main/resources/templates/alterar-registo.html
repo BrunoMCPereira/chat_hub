@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Alterar Registo - ChatHub</title>
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="content-center">
+        <h1 class="mt-5">Alterar Meus Dados</h1>
+        <form action="/alterar-registo" method="POST">
+            <div class="form-group">
+                <label for="senhaAtual">Senha Atual</label>
+                <input type="password" class="form-control" id="senhaAtual" name="senhaAtual" required>
+            </div>
+            <div class="form-group">
+                <label for="novoNomeUtilizador">Novo Nome de Utilizador</label>
+                <input type="text" class="form-control" id="novoNomeUtilizador" name="novoNomeUtilizador">
+            </div>
+            <div class="form-group">
+                <label for="novoEmail">Novo Email</label>
+                <input type="email" class="form-control" id="novoEmail" name="novoEmail">
+            </div>
+            <div class="form-group">
+                <label for="novaSenha">Nova Senha</label>
+                <input type="password" class="form-control" id="novaSenha" name="novaSenha">
+            </div>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </form>
+        <a href="dashboard.html" class="btn btn-secondary mt-3">Voltar</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatHub</title>
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/estilos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="content-center">
+            <img src="/img/chathub.png" alt="ChatHub Logo" class="logo_index">
+            <h1 class="mt-5">Bem-vindo ao ChatHub</h1>
+            <p class="lead">Regista-te e liga-te para começares a conversar.</p>
+
+            <!-- Mensagem de sucesso -->
+            <div th:if="${mensagem}" class="alert alert-success" role="alert">
+                <span th:text="${mensagem}"></span>
+            </div>
+
+            <a href="/login" class="btn btn-primary">Login</a>
+            <a href="/registro" class="btn btn-secondary">Registro</a>
+        </div>
+    </div>
+</body>
+</html>

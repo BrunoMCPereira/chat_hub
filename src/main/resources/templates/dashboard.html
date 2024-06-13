@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - ChatHub</title>
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/estilos.css" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="sidebar">
+            <!-- Logo -->
+            <img src="/img/chathub.png" alt="ChatHub Logo" style="width: 120px; margin-bottom: 20px;">
+            <button id="nomeUtilizador" class="user-button online" disabled></button>
+            <p></p>
+            <h3>Acordados</h3>
+            <div id="utilizadoresOnline"></div>
+            <p></p>
+            <h3>Ainda a dormir!!</h3>
+            <div id="utilizadoresOffline"></div>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <a href="/alterar-registo" class="btn btn-secondary mt-3">Alterar Registo</a>
+
+        </div>
+        <div class="content">
+            <div class="chat-history" id="chatHistory"></div>
+            <div class="chat-controls">
+                <input type="text" class="form-control" placeholder="Mensagem" id="message">
+                <button type="button" class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+            </div>
+            <div id="chatParticipants" style="margin-top: 10px;"></div>
+            <div id="newChatContainer" style="display:none; margin-top: 10px;">
+                <input type="text" id="newChatName" class="form-control" placeholder="Nome do chat">
+                <button id="createChatButton" class="btn btn-primary" onclick="criarChat()">Criar Chat</button>
+            </div>
+
+        </div>
+        <div class="sidebar">
+            <h4>As tuas Conversas:</h4>
+            <ul id="listaSalas"></ul>
+            <h3 id="nomeDestinatario"></h3>
+            <p></p>
+            <p></p>
+            <button id="criarChatBtn" class="btn btn-primary" style="display:none;" onclick="criarChat()">Criar Chat</button>
+            <p></p>
+            <p></p>
+            <button class="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+    <div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="welcomeModalLabel">Bem-vindo ao ChatHub</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="welcomeMessage"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
