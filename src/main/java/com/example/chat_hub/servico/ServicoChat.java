@@ -16,25 +16,26 @@ public class ServicoChat {
     @Autowired
     private GerenciadorZooKeeper gerenciadorZooKeeper;
 
-    public void criarSalaDeChat(List<String> data) {
-        String nomeSala = data.get(0);
-        String nomeUtilizador = data.get(1);
-        List<String> participantes = data.subList(2, data.size());
+    public void criarSalaDeChat(String chatName, String currentUser, List<String> participants) {
+        // Adicionar o currentUser aos participantes
+        if (!participants.contains(currentUser)) {
+            participants.add(currentUser);
+        }
 
         // Gera o nome do chat se não for fornecido
-        if (nomeSala == null || nomeSala.isEmpty() || "null".equals(nomeSala)) {
-            List<Chat> chatsExistentes = gerenciadorZooKeeper.listarChatsPorCriador(nomeUtilizador);
-            nomeSala = gerarNomeChat(nomeUtilizador, chatsExistentes);
+        if (chatName == null || chatName.isEmpty() || "null".equals(chatName)) {
+            List<Chat> chatsExistentes = gerenciadorZooKeeper.listarChatsPorCriador(currentUser);
+            chatName = gerarNomeChat(currentUser, chatsExistentes);
         }
 
         // Cria o objeto Chat
         Chat novoChat = new Chat();
-        novoChat.setNomeSala(nomeSala);
-        novoChat.setCriador(nomeUtilizador);
-        novoChat.setParticipantes(participantes);
+        novoChat.setNomeSala(chatName);
+        novoChat.setCriador(currentUser);
+        novoChat.setParticipantes(participants);
 
         // Cria a sala de chat no ZooKeeper
-        gerenciadorZooKeeper.criarSalaDeChat(nomeSala, participantes);
+        gerenciadorZooKeeper.criarSalaDeChat(chatName, participants);
 
         // Salva o chat no MongoDB
         gerenciadorZooKeeper.criarChat(novoChat);

@@ -29,7 +29,7 @@ public class ControladorLogin {
         if (isValidUser) {
             servicoUtilizador.alterarEstado(nomeUtilizador, "online");
             redirectAttributes.addFlashAttribute("nomeUtilizador", nomeUtilizador);
-            return "redirect:/dashboard";
+            return "redirect:/dashboard?nomeUtilizador=" + nomeUtilizador;
         }
         redirectAttributes.addFlashAttribute("mensagem", "Credenciais inválidas. Por favor, tente novamente.");
         redirectAttributes.addFlashAttribute("mensagemTipo", "erro");
@@ -37,7 +37,8 @@ public class ControladorLogin {
     }
 
     @GetMapping("/dashboard")
-    public String mostrarDashboard(Model model) {
+    public String mostrarDashboard(@RequestParam String nomeUtilizador, Model model) {
+        model.addAttribute("nomeUtilizador", nomeUtilizador);
         return "dashboard";
     }
 }

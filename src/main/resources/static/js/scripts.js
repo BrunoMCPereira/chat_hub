@@ -4,9 +4,11 @@ let currentChatRoom;
 let selectedParticipants = [];
 
 document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    currentUser = urlParams.get('nomeUtilizador');
     const nomeUtilizadorElement = document.getElementById("nomeUtilizador");
-    if (nomeUtilizadorElement) {
-        currentUser = nomeUtilizadorElement.textContent.split(", ")[1].trim();
+    if (nomeUtilizadorElement && currentUser) {
+        nomeUtilizadorElement.textContent = currentUser;
         carregarDados(currentUser);
         connectWebSocket(currentUser);
         atualizarStatus("online");
@@ -38,8 +40,11 @@ function atualizarListaSalas(salas) {
     salas.forEach(sala => {
         const salaDiv = document.createElement('div');
         salaDiv.className = 'sala';
-        salaDiv.textContent = sala.nomeSala;
-        salaDiv.onclick = () => carregarMensagens(sala.nomeSala);
+        salaDiv.textContent = sala;
+        salaDiv.onclick = () => {
+            carregarMensagens(sala);
+            carregarParticipantesChat(sala);
+        };
         listaSalas.appendChild(salaDiv);
     });
     console.log("Lista de salas atualizada:", salas);
@@ -75,7 +80,9 @@ function updateParticipantsDisplay() {
 function criarChat() {
     const chatName = document.getElementById("newChatName").value;
     if (chatName) {
-        const payload = { chatName, participants: selectedParticipants };
+        const payload = { chatName, currentUser, participants: selectedParticipants };
+        console.log("Iniciando criação de chat com payload:", payload);
+
         fetch("/api/chat/criarChat", {
             method: "POST",
             headers: {
@@ -84,15 +91,21 @@ function criarChat() {
             body: JSON.stringify(payload)
         }).then(response => {
             if (response.ok) {
-                window.location.href = "/dashboard";
                 console.log("Chat criado com sucesso:", chatName);
+                // Carregar dados novamente para atualizar a lista de salas
+                carregarSalas(currentUser);
             } else {
                 alert("Erro ao criar chat.");
                 console.error("Erro ao criar chat:", response);
             }
+        }).catch(error => {
+            console.error("Erro na requisição de criação de chat:", error);
         });
+    } else {
+        console.warn("Nome do chat não fornecido.");
     }
 }
+
 
 function carregarUtilizadoresOnline() {
     fetch('/api/chat/utilizadores/online')
@@ -106,11 +119,13 @@ function carregarUtilizadoresOnline() {
             const utilizadoresOnlineContainer = document.getElementById("utilizadoresOnline");
             utilizadoresOnlineContainer.innerHTML = ''; // Limpar container antes de adicionar novos elementos
             utilizadores.forEach(utilizador => {
-                const button = document.createElement("button");
-                button.textContent = utilizador;
-                button.className = "user-button online";
-                button.onclick = () => selectParticipant(utilizador);
-                utilizadoresOnlineContainer.appendChild(button);
+                if (utilizador !== currentUser) {
+                    const button = document.createElement("button");
+                    button.textContent = utilizador;
+                    button.className = "user-button online";
+                    button.onclick = () => selectParticipant(utilizador);
+                    utilizadoresOnlineContainer.appendChild(button);
+                }
             });
         })
         .catch(error => console.error('Erro ao carregar utilizadores online:', error));
@@ -128,11 +143,13 @@ function carregarUtilizadoresOffline() {
             const utilizadoresOfflineContainer = document.getElementById("utilizadoresOffline");
             utilizadoresOfflineContainer.innerHTML = ''; // Limpar container antes de adicionar novos elementos
             utilizadores.forEach(utilizador => {
-                const button = document.createElement("button");
-                button.textContent = utilizador;
-                button.className = "user-button offline";
-                button.onclick = () => selectParticipant(utilizador);
-                utilizadoresOfflineContainer.appendChild(button);
+                if (utilizador !== currentUser) {
+                    const button = document.createElement("button");
+                    button.textContent = utilizador;
+                    button.className = "user-button offline";
+                    button.onclick = () => selectParticipant(utilizador);
+                    utilizadoresOfflineContainer.appendChild(button);
+                }
             });
             console.log("Utilizadores offline carregados:", utilizadores);
         })
@@ -140,6 +157,9 @@ function carregarUtilizadoresOffline() {
 }
 
 function connectWebSocket(username) {
+    if (ws) {
+        ws.close();
+    }
     ws = new WebSocket("ws://" + window.location.host + "/ecra_dashboard?username=" + username);
     ws.onopen = function() {
         console.log("Conectado ao WebSocket");
@@ -147,42 +167,50 @@ function connectWebSocket(username) {
     };
     ws.onmessage = function(event) {
         const data = JSON.parse(event.data);
-        const tipo = data.tipo;
-        const mensagem = data.mensagem;
-        const sala = data.sala;
-
-        console.log("Mensagem recebida do WebSocket:", data); // Log para depuração
-
-        switch (tipo) {
-            case "mudanca_estado_utilizadores":
-                carregarUtilizadoresOnline();
-                carregarUtilizadoresOffline();
-                break;
-            case "mudanca_participantes_chat":
-                if (sala === currentChatRoom) {
-                    carregarParticipantesChat(currentChatRoom);
-                }
-                break;
-            case "nova_mensagem_chat":
-                if (sala === currentChatRoom) {
-                    const chatHistory = document.getElementById('chatHistory');
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = mensagem.remetente === currentUser ? 'message outgoing' : 'message incoming';
-                    messageDiv.textContent = `${mensagem.remetente}: ${mensagem.conteudo}`;
-                    chatHistory.appendChild(messageDiv);
-                    chatHistory.scrollTop = chatHistory.scrollHeight;
-                }
-                break;
-            default:
-                console.error("Tipo de mensagem desconhecido:", tipo);
-        }
+        handleWebSocketMessage(data);
     };
     ws.onerror = function(error) {
         console.error("Erro no WebSocket:", error);
     };
     ws.onclose = function() {
-        console.log("WebSocket fechado");
+        console.log("WebSocket fechado, tentando reconectar em 5 segundos...");
+        setTimeout(() => connectWebSocket(username), 5000);
     };
+}
+
+function handleWebSocketMessage(data) {
+    const tipo = data.tipo;
+    const mensagem = data.mensagem;
+    const sala = data.sala;
+
+    console.log("Mensagem recebida do WebSocket:", data); // Log para depuração
+
+    switch (tipo) {
+        case "mudanca_estado_utilizadores":
+            carregarUtilizadoresOnline();
+            carregarUtilizadoresOffline();
+            break;
+        case "mudanca_participantes_chat":
+            if (sala === currentChatRoom) {
+                carregarParticipantesChat(currentChatRoom);
+            }
+            break;
+        case "nova_mensagem_chat":
+            if (sala === currentChatRoom) {
+                const chatHistory = document.getElementById('chatHistory');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = mensagem.remetente === currentUser ? 'message outgoing' : 'message incoming';
+                messageDiv.textContent = `${mensagem.remetente}: ${mensagem.conteudo}`;
+                chatHistory.appendChild(messageDiv);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }
+            break;
+        case "mudanca_sala":
+            carregarSalas(currentUser);
+            break;
+        default:
+            console.error("Tipo de mensagem desconhecido:", tipo);
+    }
 }
 
 function sendMessage() {
@@ -208,6 +236,7 @@ function sendMessage() {
 }
 
 function carregarMensagens(nomeSala) {
+    currentChatRoom = nomeSala;
     fetch(`/api/chat/mensagens?nomeSala=${nomeSala}`)
         .then(response => response.json())
         .then(data => {
@@ -229,6 +258,23 @@ function atualizarStatus(status) {
     fetch(`/estado_ligacao?nomeUtilizador=${currentUser}&estado=${status}`, {
         method: 'POST'
     });
+}
+
+function carregarParticipantesChat(nomeSala) {
+    fetch(`/api/chat/participantes?nomeSala=${nomeSala}`)
+        .then(response => response.json())
+        .then(data => {
+            // Atualize a lista de participantes na interface do usuário
+            const participantsContainer = document.getElementById('chatParticipants');
+            participantsContainer.innerHTML = '';
+            data.forEach(participante => {
+                const participantDiv = document.createElement('div');
+                participantDiv.className = 'participant';
+                participantDiv.textContent = participante;
+                participantsContainer.appendChild(participantDiv);
+            });
+        })
+        .catch(error => console.error('Erro ao carregar participantes da sala:', error));
 }
 
 function logout() {

@@ -115,4 +115,14 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
             }
         }
     }
+
+    public void notificarClientesSobreNovaMensagem(String sala) {
+        logger.info("Notificando clientes sobre nova mensagem na sala: " + sala);
+        notificarClientes("nova_mensagem", sala);
+    }
+
+    public void notificarClientesSobreMudancaDeSala(String sala) {
+        logger.info("Notificando clientes sobre mudança na sala: " + sala);
+        notificarClientes("mudanca_sala", sala);
+    }
 }
