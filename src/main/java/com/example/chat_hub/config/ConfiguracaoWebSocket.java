@@ -28,7 +28,7 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(this, "/ecra_dashboard").setAllowedOrigins("*");
-        logger.info("WebSocket handler registado em /ecra_dashboard");
+        logger.info("WebSocket handler registrado em /ecra_dashboard");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
-        logger.info("WebS - Mensagem recebida: " + payload);
+        logger.info("Mensagem WebSocket recebida: " + payload);
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -64,11 +64,10 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
             if ("login".equals(type) && username != null) {
                 sessions.put(username, session);
                 session.getAttributes().put("username", username);
-                logger.info("WebS - Utilizador com login: " + username);
-                logger.info("WebS - Gravado" + session.getAttributes().get("username"));
+                logger.info("Usuário logado: " + username);
             }
         } catch (IOException e) {
-            logger.error("WebS - Falha ao analisar mensagem: " + payload, e);
+            logger.error("Falha ao analisar mensagem: " + payload, e);
         }
     }
 
@@ -77,29 +76,29 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
         String username = (String) session.getAttributes().get("username");
         if (username != null) {
             sessions.remove(username);
-            logger.info("WebS - Utilizador desconectado: " + username);
+            logger.info("Usuário desconectado: " + username);
         } else {
             sessions.values().remove(session);
-            logger.info("WebS - Sessão WebSocket desconectada: " + session.getId());
+            logger.info("Sessão WebSocket desconectada: " + session.getId());
         }
     }
 
+    // Notifica todos os clientes sobre a mudança de estado dos usuários
     public void notificarMudancaEstadoUtilizadores() {
-        logger.info("WebS - Notificando todos os clientes para atualizar estados dos usuários.");
         String payload = "{\"tipo\":\"atualizar_usuarios\"}";
         for (WebSocketSession session : sessions.values()) {
             if (session.isOpen()) {
                 try {
                     session.sendMessage(new TextMessage(payload));
                 } catch (IOException e) {
-                    logger.error("WebS - Erro ao enviar mensagem de atualização de usuários", e);
+                    logger.error("Erro ao enviar mensagem de atualização de usuários", e);
                 }
             }
         }
     }
 
+    // Notifica os clientes sobre um evento específico
     public void notificarClientes(String tipo, String sala, Mensagem mensagem) {
-        logger.info("WebS - Notificando clientes do tipo: " + tipo + (sala != null ? " na sala: " + sala : ""));
         for (WebSocketSession session : sessions.values()) {
             if (session.isOpen()) {
                 try {
@@ -114,22 +113,23 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
                     }
                     session.sendMessage(new TextMessage(payload));
                 } catch (IOException e) {
-                    logger.error("WebS - Erro ao enviar mensagem de notificação: ", e);
+                    logger.error("Erro ao enviar mensagem de notificação", e);
                 }
             }
         }
     }
 
+    // Sobrecarga para notificar clientes sem mensagem específica
     public void notificarClientes(String tipo, String sala) {
         notificarClientes(tipo, sala, null);
     }
 
-    // Ajuste da função de notificação de mudança de sala
+    // Notifica os clientes sobre mudança de sala
     public void notificarClientesSobreMudancaDeSala(String sala) {
-        logger.info("WebS - Notificando clientes sobre mudança na sala: " + sala);
         notificarClientes("mudanca_sala", sala, null);
     }
 
+    // Envia notificação de nova mensagem para os clientes da sala
     public void enviarNotificacaoNovaMensagem(String sala, Mensagem mensagem) {
         String payload = String.format(
                 "{\"tipo\":\"nova_mensagem\",\"sala\":\"%s\",\"mensagem\":{\"remetente\":\"%s\",\"conteudo\":\"%s\",\"dataCriacao\":\"%s\"}}",
@@ -139,12 +139,11 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
             if (session.isOpen()) {
                 try {
                     session.sendMessage(new TextMessage(payload));
-                    logger.info("WebS - Mensagem de nova mensagem enviada para sala: " + sala);
+                    logger.info("Mensagem de nova mensagem enviada para sala: " + sala);
                 } catch (IOException e) {
                     logger.error("Erro ao enviar mensagem de notificação", e);
                 }
             }
         }
     }
-
 }
