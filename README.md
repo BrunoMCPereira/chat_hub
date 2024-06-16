@@ -3,11 +3,11 @@
 
 O Chat Hub é uma aplicação de mensagens em tempo real que utiliza Apache ZooKeeper para gerenciar estados de usuários, salas de chat e mensagens. Este projeto foi desenvolvido para demonstrar o uso de ZooKeeper tanto em modo standalone quanto em um ambiente de cluster, fornecendo exemplos de configuração e lógica para ambos os casos.
 Branches
-# Branch Master
+Branch Master
 Descrição: Esta branch foi programada para funcionar em um nó znode em standalone mode. Toda a lógica e operações foram configuradas para um ambiente de nó único.
 Uso: Ideal para testes e desenvolvimento local onde a simplicidade e a configuração de um único nó são suficientes.
 
-Branch Cluster
+# Branch Cluster
 Descrição: Esta branch foi desenvolvida para funcionar em um ambiente com múltiplos nós, formando um cluster. Nessa configuração, a eleição de líder é parametrizada para gerenciar as operações de escrita. Para as operações de leitura, foi implementado um sistema de round robin, que percorre os elementos constituintes do cluster para distribuir as requisições de leitura de forma equilibrada. 
 Uso: Recomendado para ambientes de produção onde alta disponibilidade e balanceamento de carga são necessários.
 
