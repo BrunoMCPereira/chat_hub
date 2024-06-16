@@ -27,7 +27,7 @@ public class ServicoUtilizador {
             utilizador.setSenha(hashSenha(senha));
             utilizador.setStatus("offline");
             gerenciadorZooKeeper.registrarUsuario(utilizador);
-            gerenciadorZooKeeper.criarUtilizador(nomeUtilizador);
+            gerenciadorZooKeeper.registrarNovoUsuario(nomeUtilizador);
         }
     }
 

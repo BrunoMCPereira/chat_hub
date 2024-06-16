@@ -32,45 +32,58 @@ public class ControladorChat {
 
     @PostMapping("/criarChat")
     public void criarSala(@RequestBody Map<String, Object> payload) {
-        logger.info("Recebido pedido para criar chat com payload: {}", payload);
+        logger.info("Controlador - Recebido pedido para criar chat com payload: {}", payload);
 
         try {
             String chatName = (String) payload.get("chatName");
             String currentUser = (String) payload.get("currentUser");
             List<String> participants = (List<String>) payload.get("participants");
 
-            logger.info("Dados recebidos - chatName: {}, currentUser: {}, participants: {}", chatName, currentUser,
+            logger.info("Controlador - Dados recebidos - chatName: {}, currentUser: {}, participants: {}", chatName,
+                    currentUser,
                     participants);
 
             if (chatName == null || chatName.isEmpty() || participants == null || participants.isEmpty()) {
                 logger.error(
-                        "Nome do chat e participantes são obrigatórios. Dados inválidos - chatName: {}, participants: {}",
+                        "Controlador - Nome do chat e participantes são obrigatórios. Dados inválidos - chatName: {}, participants: {}",
                         chatName, participants);
-                throw new IllegalArgumentException("Nome do chat e participantes são obrigatórios.");
+                throw new IllegalArgumentException("Controlador - Nome do chat e participantes são obrigatórios.");
             }
 
             // Criar o chat
-            logger.info("Chamando servicoChat.criarSalaDeChat() com chatName: {}, currentUser: {}, participants: {}",
+            logger.info(
+                    "Controlador - Chamando servicoChat.criarSalaDeChat() com chatName: {}, currentUser: {}, participants: {}",
                     chatName, currentUser, participants);
             servicoChat.criarSalaDeChat(chatName, currentUser, participants);
 
-            logger.info("Chat criado com sucesso - chatName: {}, currentUser: {}, participants: {}", chatName,
+            logger.info("Controlador - Chat criado com sucesso - chatName: {}, currentUser: {}, participants: {}",
+                    chatName,
                     currentUser, participants);
         } catch (Exception e) {
-            logger.error("Erro ao criar chat", e);
-            throw new RuntimeException("Erro ao criar chat", e);
+            logger.error("Controlador - Erro ao criar chat", e);
+            throw new RuntimeException("Controlador - Erro ao criar chat", e);
         }
     }
 
     @PostMapping("/mensagem")
-    public String adicionarMensagem(@RequestParam String sala, @RequestParam String mensagem,
-            @RequestParam String nomeUtilizador, RedirectAttributes redirectAttributes) {
-        gerenciadorZooKeeper.adicionarMensagem(sala, mensagem, nomeUtilizador);
+    public ResponseEntity<String> adicionarMensagem(@RequestBody Map<String, Object> payload) {
+        String sala = (String) payload.get("nomeSala");
+        String mensagem = (String) payload.get("conteudo");
+        String nomeUtilizador = (String) payload.get("remetente");
+        String dataCriacao = (String) payload.get("dataCriacao");
 
-        redirectAttributes.addFlashAttribute("mensagem", "Mensagem enviada para a sala '" + sala + "'.");
-        redirectAttributes.addFlashAttribute("mensagemTipo", "sucesso");
+        if (sala == null || mensagem == null || nomeUtilizador == null || dataCriacao == null) {
+            return ResponseEntity.badRequest().body("Parâmetros ausentes.");
+        }
 
-        return "redirect:/chat"; // Redireciona para a página de chat
+        try {
+            servicoChat.adicionarMensagem(sala, mensagem, nomeUtilizador, dataCriacao);
+            return ResponseEntity.ok("Controlador - Mensagem enviada com sucesso.");
+        } catch (Exception e) {
+            logger.error("Controlador - Erro ao adicionar mensagem", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Controlador - Erro ao adicionar mensagem");
+        }
     }
 
     @PostMapping("/entrar")
@@ -79,7 +92,7 @@ public class ControladorChat {
         gerenciadorZooKeeper.entrarSala(sala, utilizador);
 
         redirectAttributes.addFlashAttribute("mensagem",
-                "Utilizador '" + utilizador + "' entrou na sala '" + sala + "'.");
+                "Controlador - Utilizador '" + utilizador + "' entrou na sala '" + sala + "'.");
         redirectAttributes.addFlashAttribute("mensagemTipo", "sucesso");
 
         return "redirect:/chat"; // Redireciona para a página de chat
@@ -91,7 +104,7 @@ public class ControladorChat {
         gerenciadorZooKeeper.sairSala(sala, utilizador);
 
         redirectAttributes.addFlashAttribute("mensagem",
-                "Utilizador '" + utilizador + "' saiu da sala '" + sala + "'.");
+                "Controlador - Utilizador '" + utilizador + "' saiu da sala '" + sala + "'.");
         redirectAttributes.addFlashAttribute("mensagemTipo", "erro");
 
         return "redirect:/chat"; // Redireciona para a página de chat
@@ -118,13 +131,17 @@ public class ControladorChat {
     }
 
     @GetMapping("/utilizadores/online")
-    public List<String> listarUtilizadoresOnline() {
-        return servicoUtilizador.listarNomesUtilizadoresPorStatus("online");
+    public ResponseEntity<List<String>> getUtilizadoresOnline() {
+        List<String> utilizadoresOnline = servicoUtilizador.listarNomesUtilizadoresPorStatus("online");
+        logger.info("Utilizadores online: " + utilizadoresOnline);
+        return ResponseEntity.ok(utilizadoresOnline);
     }
 
     @GetMapping("/utilizadores/offline")
-    public List<String> listarUtilizadoresOffline() {
-        return servicoUtilizador.listarNomesUtilizadoresPorStatus("offline");
+    public ResponseEntity<List<String>> getUtilizadoresOffline() {
+        List<String> utilizadoresOffline = servicoUtilizador.listarNomesUtilizadoresPorStatus("offline");
+        logger.info("Utilizadores offline: " + utilizadoresOffline);
+        return ResponseEntity.ok(utilizadoresOffline);
     }
 
     @GetMapping("/salas/utilizador")
@@ -132,7 +149,7 @@ public class ControladorChat {
         return servicoChat.carregarSalasAtivas(nomeUtilizador);
     }
 
-    @GetMapping("/api/chat/mensagens")
+    @GetMapping("/mensagens")
     public List<Mensagem> listarMensagens(@RequestParam String nomeSala) {
         return servicoChat.carregarMensagens(nomeSala);
 

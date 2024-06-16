@@ -1,5 +1,6 @@
 package com.example.chat_hub.config;
 
+import com.example.chat_hub.modelo.Mensagem;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
 
     private static final Logger logger = LoggerFactory.getLogger(ConfiguracaoWebSocket.class);
     private Map<String, WebSocketSession> sessions = new HashMap<>();
+    private ObjectMapper objectMapper;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
@@ -51,7 +53,7 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
-        logger.info("Mensagem recebida: " + payload);
+        logger.info("WebS - Mensagem recebida: " + payload);
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -62,11 +64,11 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
             if ("login".equals(type) && username != null) {
                 sessions.put(username, session);
                 session.getAttributes().put("username", username);
-                logger.info("Utilizador com login: " + username);
-                logger.info("Gravado" + session.getAttributes().get("username"));
+                logger.info("WebS - Utilizador com login: " + username);
+                logger.info("WebS - Gravado" + session.getAttributes().get("username"));
             }
         } catch (IOException e) {
-            logger.error("Falha ao analisar mensagem: " + payload, e);
+            logger.error("WebS - Falha ao analisar mensagem: " + payload, e);
         }
     }
 
@@ -75,54 +77,74 @@ public class ConfiguracaoWebSocket extends TextWebSocketHandler implements WebSo
         String username = (String) session.getAttributes().get("username");
         if (username != null) {
             sessions.remove(username);
-            logger.info("Utilizador desconectado: " + username);
+            logger.info("WebS - Utilizador desconectado: " + username);
         } else {
             sessions.values().remove(session);
-            logger.info("Sessão WebSocket desconectada: " + session.getId());
+            logger.info("WebS - Sessão WebSocket desconectada: " + session.getId());
         }
     }
 
     public void notificarMudancaEstadoUtilizadores() {
-        logger.info("Notificando mudança de estado dos utilizadores");
-        if (sessions.isEmpty()) {
-            logger.warn("Nenhuma sessão WebSocket ativa encontrada");
-        }
-        sessions.values().removeIf(session -> !session.isOpen()); // Remover sessões fechadas
+        logger.info("WebS - Notificando todos os clientes para atualizar estados dos usuários.");
+        String payload = "{\"tipo\":\"atualizar_usuarios\"}";
         for (WebSocketSession session : sessions.values()) {
             if (session.isOpen()) {
                 try {
-                    logger.info("Enviando mensagem de notificação para a sessão: {}", session.getId());
-                    session.sendMessage(new TextMessage("{\"tipo\":\"mudanca_estado_utilizadores\"}"));
+                    session.sendMessage(new TextMessage(payload));
                 } catch (IOException e) {
-                    logger.error("Erro ao enviar mensagem de notificação: ", e);
+                    logger.error("WebS - Erro ao enviar mensagem de atualização de usuários", e);
                 }
-            } else {
-                logger.warn("Sessão WebSocket fechada encontrada: " + session.getId());
+            }
+        }
+    }
+
+    public void notificarClientes(String tipo, String sala, Mensagem mensagem) {
+        logger.info("WebS - Notificando clientes do tipo: " + tipo + (sala != null ? " na sala: " + sala : ""));
+        for (WebSocketSession session : sessions.values()) {
+            if (session.isOpen()) {
+                try {
+                    String payload;
+                    if (mensagem != null) {
+                        payload = "{\"tipo\":\"" + tipo + "\",\"sala\":\"" + sala + "\",\"mensagem\":"
+                                + objectMapper.writeValueAsString(mensagem) + "}";
+                    } else if (sala != null) {
+                        payload = "{\"tipo\":\"" + tipo + "\",\"sala\":\"" + sala + "\"}";
+                    } else {
+                        payload = "{\"tipo\":\"" + tipo + "\"}";
+                    }
+                    session.sendMessage(new TextMessage(payload));
+                } catch (IOException e) {
+                    logger.error("WebS - Erro ao enviar mensagem de notificação: ", e);
+                }
             }
         }
     }
 
     public void notificarClientes(String tipo, String sala) {
-        logger.info("Notificando clientes do tipo: " + tipo + " na sala: " + sala);
+        notificarClientes(tipo, sala, null);
+    }
+
+    // Ajuste da função de notificação de mudança de sala
+    public void notificarClientesSobreMudancaDeSala(String sala) {
+        logger.info("WebS - Notificando clientes sobre mudança na sala: " + sala);
+        notificarClientes("mudanca_sala", sala, null);
+    }
+
+    public void enviarNotificacaoNovaMensagem(String sala, Mensagem mensagem) {
+        String payload = String.format(
+                "{\"tipo\":\"nova_mensagem\",\"sala\":\"%s\",\"mensagem\":{\"remetente\":\"%s\",\"conteudo\":\"%s\",\"dataCriacao\":\"%s\"}}",
+                sala, mensagem.getRemetente(), mensagem.getConteudo(), mensagem.getDataCriacao());
+
         for (WebSocketSession session : sessions.values()) {
             if (session.isOpen()) {
                 try {
-                    String payload = "{\"tipo\":\"" + tipo + "\",\"sala\":\"" + sala + "\"}";
                     session.sendMessage(new TextMessage(payload));
+                    logger.info("WebS - Mensagem de nova mensagem enviada para sala: " + sala);
                 } catch (IOException e) {
-                    logger.error("Erro ao enviar mensagem de notificação: ", e);
+                    logger.error("Erro ao enviar mensagem de notificação", e);
                 }
             }
         }
     }
 
-    public void notificarClientesSobreNovaMensagem(String sala) {
-        logger.info("Notificando clientes sobre nova mensagem na sala: " + sala);
-        notificarClientes("nova_mensagem", sala);
-    }
-
-    public void notificarClientesSobreMudancaDeSala(String sala) {
-        logger.info("Notificando clientes sobre mudança na sala: " + sala);
-        notificarClientes("mudanca_sala", sala);
-    }
 }

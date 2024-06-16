@@ -1,0 +1,507 @@
+2024-06-15 02:32:16 - Client session timed out, have not heard from server in 18057367ms for session id 0x1003c5f21fd00e8
+2024-06-15 02:32:16 - Session 0x1003c5f21fd00e8 for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionTimeoutException: Client session timed out, have not heard from server in 18057367ms for session id 0x1003c5f21fd00e8
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1258)
+2024-06-15 02:32:16 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 02:32:16 - GesZook - Evento recebido: WatchedEvent state:Disconnected type:None path:null
+2024-06-15 02:32:16 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 02:32:17 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 02:32:17 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 02:32:17 - Socket connection established, initiating session, client: /192.168.1.5:18378, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 02:32:17 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 02:32:17 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00e8 has expired
+2024-06-15 02:32:17 - GesZook - Evento recebido: WatchedEvent state:Expired type:None path:null
+2024-06-15 02:32:17 - Session 0x1003c5f21fd00e8 for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00e8 has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 02:32:17 - GesZook - Sessão expirou, tentando reconectar...
+2024-06-15 02:32:17 - GesZook - Tentando conectar ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 02:32:17 - Initiating client connection, connectString=192.168.1.239:2181 sessionTimeout=60000 watcher=com.example.chat_hub.zookeeper.GerenciadorZooKeeper@37c7766e
+2024-06-15 02:32:17 - jute.maxbuffer value is 1048575 Bytes
+2024-06-15 02:32:17 - zookeeper.request.timeout value is 0. feature enabled=false
+2024-06-15 02:32:17 - GesZook - Conectado ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 02:32:17 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 02:32:17 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 02:32:17 - GesZook - Evento recebido: WatchedEvent state:Closed type:None path:null
+2024-06-15 02:32:17 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 02:32:17 - EventThread shut down for session: 0x1003c5f21fd00e8
+2024-06-15 02:32:18 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 02:32:18 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 02:32:18 - Socket connection established, initiating session, client: /192.168.1.5:18387, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 02:32:18 - Session establishment complete on server raspberrypi.home/192.168.1.239:2181, session id = 0x1003c5f21fd00ea, negotiated timeout = 40000
+2024-06-15 02:32:18 - GesZook - Evento recebido: WatchedEvent state:SyncConnected type:None path:null
+2024-06-15 02:32:18 - GesZook - Conexão reestabelecida. Re-armando watchers.
+2024-06-15 02:32:18 - GesZook - Monitorando utilizadores em: /utilizadores
+2024-06-15 02:32:18 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 02:32:18 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 02:32:18 - GesZook - Monitorando sala: teste
+2024-06-15 02:32:18 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 02:32:18 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 02:32:18 - GesZook - Monitorando sala: teste
+2024-06-15 02:32:18 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 02:32:18 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 02:32:18 - GesZook - Monitorando sala: teste
+2024-06-15 02:32:18 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 02:32:20 - Client session timed out, have not heard from server in 18057246ms for session id 0x1003c5f21fd00e9
+2024-06-15 02:32:20 - Session 0x1003c5f21fd00e9 for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionTimeoutException: Client session timed out, have not heard from server in 18057246ms for session id 0x1003c5f21fd00e9
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1258)
+2024-06-15 02:32:22 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 02:32:22 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 02:32:22 - Socket connection established, initiating session, client: /192.168.1.5:18420, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 02:32:22 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00e9 has expired
+2024-06-15 02:32:22 - EventThread shut down for session: 0x1003c5f21fd00e9
+2024-06-15 02:32:22 - Session 0x1003c5f21fd00e9 for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00e9 has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 06:12:23 - Client session timed out, have not heard from server in 13044500ms for session id 0x1003c5f21fd00ea
+2024-06-15 06:12:23 - Session 0x1003c5f21fd00ea for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionTimeoutException: Client session timed out, have not heard from server in 13044500ms for session id 0x1003c5f21fd00ea
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1258)
+2024-06-15 06:12:23 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 06:12:23 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 06:12:23 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 06:12:23 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 06:12:23 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 06:12:23 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 06:12:23 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 06:12:23 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 06:12:23 - GesZook - Evento recebido: WatchedEvent state:Disconnected type:None path:null
+2024-06-15 06:12:23 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 06:12:23 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 06:12:23 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 06:12:25 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 06:12:25 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 06:12:25 - Socket connection established, initiating session, client: /192.168.1.5:18952, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 06:12:25 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ea has expired
+2024-06-15 06:12:25 - Session 0x1003c5f21fd00ea for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ea has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 06:12:25 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 06:12:25 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 06:12:25 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 06:12:25 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 06:12:25 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 06:12:25 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 06:12:25 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 06:12:25 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 06:12:25 - GesZook - Evento recebido: WatchedEvent state:Expired type:None path:null
+2024-06-15 06:12:25 - GesZook - Sessão expirou, tentando reconectar...
+2024-06-15 06:12:25 - GesZook - Tentando conectar ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 06:12:25 - Initiating client connection, connectString=192.168.1.239:2181 sessionTimeout=60000 watcher=com.example.chat_hub.zookeeper.GerenciadorZooKeeper@37c7766e
+2024-06-15 06:12:25 - jute.maxbuffer value is 1048575 Bytes
+2024-06-15 06:12:25 - zookeeper.request.timeout value is 0. feature enabled=false
+2024-06-15 06:12:25 - GesZook - Conectado ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 06:12:25 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 06:12:25 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 06:12:25 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 06:12:25 - EventThread shut down for session: 0x1003c5f21fd00ea
+2024-06-15 06:12:25 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 06:12:25 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 06:12:25 - Socket connection established, initiating session, client: /192.168.1.5:18954, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 06:12:25 - Session establishment complete on server raspberrypi.home/192.168.1.239:2181, session id = 0x1003c5f21fd00eb, negotiated timeout = 40000
+2024-06-15 06:12:25 - GesZook - Evento recebido: WatchedEvent state:SyncConnected type:None path:null
+2024-06-15 06:12:25 - GesZook - Conexão reestabelecida. Re-armando watchers.
+2024-06-15 06:12:25 - GesZook - Monitorando utilizadores em: /utilizadores
+2024-06-15 06:12:25 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 06:12:25 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 06:12:25 - GesZook - Monitorando sala: teste
+2024-06-15 06:12:25 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 06:12:25 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 06:12:26 - GesZook - Monitorando sala: teste
+2024-06-15 06:12:26 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 06:12:26 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 06:12:26 - GesZook - Monitorando sala: teste
+2024-06-15 06:12:26 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 14:06:43 - Client session timed out, have not heard from server in 25882660ms for session id 0x1003c5f21fd00eb
+2024-06-15 14:06:43 - Session 0x1003c5f21fd00eb for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionTimeoutException: Client session timed out, have not heard from server in 25882660ms for session id 0x1003c5f21fd00eb
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1258)
+2024-06-15 14:06:43 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 14:06:43 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 14:06:43 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 14:06:43 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 14:06:43 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 14:06:43 - GesZook - Evento recebido: WatchedEvent state:Disconnected type:None path:null
+2024-06-15 14:06:43 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 14:06:43 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 14:06:43 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 14:06:43 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 14:06:43 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 14:06:43 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 14:06:45 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 14:06:45 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 14:06:45 - Socket connection established, initiating session, client: /192.168.1.5:20192, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 14:06:45 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 14:06:45 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00eb has expired
+2024-06-15 14:06:45 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 14:06:45 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 14:06:45 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 14:06:45 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 14:06:45 - GesZook - Evento recebido: WatchedEvent state:Expired type:None path:null
+2024-06-15 14:06:45 - GesZook - Sessão expirou, tentando reconectar...
+2024-06-15 14:06:45 - Session 0x1003c5f21fd00eb for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00eb has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 14:06:45 - GesZook - Tentando conectar ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 14:06:45 - Initiating client connection, connectString=192.168.1.239:2181 sessionTimeout=60000 watcher=com.example.chat_hub.zookeeper.GerenciadorZooKeeper@37c7766e
+2024-06-15 14:06:45 - jute.maxbuffer value is 1048575 Bytes
+2024-06-15 14:06:45 - zookeeper.request.timeout value is 0. feature enabled=false
+2024-06-15 14:06:45 - GesZook - Conectado ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 14:06:45 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 14:06:45 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 14:06:45 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 14:06:45 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 14:06:45 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 14:06:45 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 14:06:45 - EventThread shut down for session: 0x1003c5f21fd00eb
+2024-06-15 14:06:45 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 14:06:45 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 14:06:45 - Socket connection established, initiating session, client: /192.168.1.5:20195, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 14:06:45 - Session establishment complete on server raspberrypi.home/192.168.1.239:2181, session id = 0x1003c5f21fd00ec, negotiated timeout = 40000
+2024-06-15 14:06:45 - GesZook - Evento recebido: WatchedEvent state:SyncConnected type:None path:null
+2024-06-15 14:06:45 - GesZook - Conexão reestabelecida. Re-armando watchers.
+2024-06-15 14:06:45 - GesZook - Monitorando utilizadores em: /utilizadores
+2024-06-15 14:06:45 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 14:06:45 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 14:06:45 - GesZook - Monitorando sala: teste
+2024-06-15 14:06:45 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 14:06:45 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 14:06:46 - GesZook - Monitorando sala: teste
+2024-06-15 14:06:46 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 14:06:46 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 14:06:46 - GesZook - Monitorando sala: teste
+2024-06-15 14:06:46 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 18:35:21 - Client session timed out, have not heard from server in 2183319ms for session id 0x1003c5f21fd00ec
+2024-06-15 18:35:21 - Session 0x1003c5f21fd00ec for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionTimeoutException: Client session timed out, have not heard from server in 2183319ms for session id 0x1003c5f21fd00ec
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1258)
+2024-06-15 18:35:21 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 18:35:21 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 18:35:21 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 18:35:21 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 18:35:21 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 18:35:21 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 18:35:21 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 18:35:21 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 18:35:21 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 18:35:21 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 18:35:21 - GesZook - Evento recebido: WatchedEvent state:Disconnected type:None path:null
+2024-06-15 18:35:21 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 18:35:23 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 18:35:23 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 18:35:23 - Socket connection established, initiating session, client: /192.168.1.5:27678, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 18:35:23 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ec has expired
+2024-06-15 18:35:23 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 18:35:23 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 18:35:23 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 18:35:23 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 18:35:23 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 18:35:23 - Session 0x1003c5f21fd00ec for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ec has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 18:35:23 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 18:35:23 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 18:35:23 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 18:35:23 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 18:35:23 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 18:35:23 - GesZook - Evento recebido: WatchedEvent state:Expired type:None path:null
+2024-06-15 18:35:23 - GesZook - Sessão expirou, tentando reconectar...
+2024-06-15 18:35:23 - GesZook - Tentando conectar ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 18:35:23 - Initiating client connection, connectString=192.168.1.239:2181 sessionTimeout=60000 watcher=com.example.chat_hub.zookeeper.GerenciadorZooKeeper@37c7766e
+2024-06-15 18:35:23 - jute.maxbuffer value is 1048575 Bytes
+2024-06-15 18:35:23 - zookeeper.request.timeout value is 0. feature enabled=false
+2024-06-15 18:35:23 - GesZook - Conectado ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 18:35:23 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 18:35:23 - EventThread shut down for session: 0x1003c5f21fd00ec
+2024-06-15 18:35:23 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 18:35:23 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 18:35:23 - Socket connection established, initiating session, client: /192.168.1.5:27679, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 18:35:23 - Session establishment complete on server raspberrypi.home/192.168.1.239:2181, session id = 0x1003c5f21fd00ed, negotiated timeout = 40000
+2024-06-15 18:35:23 - GesZook - Evento recebido: WatchedEvent state:SyncConnected type:None path:null
+2024-06-15 18:35:23 - GesZook - Conexão reestabelecida. Re-armando watchers.
+2024-06-15 18:35:23 - GesZook - Monitorando utilizadores em: /utilizadores
+2024-06-15 18:35:23 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 18:35:23 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 18:35:23 - GesZook - Monitorando sala: teste
+2024-06-15 18:35:23 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 18:35:23 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 18:35:23 - GesZook - Monitorando sala: teste
+2024-06-15 18:35:23 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 18:35:23 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 18:35:23 - GesZook - Monitorando sala: teste
+2024-06-15 18:35:23 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 19:13:39 - Session 0x1003c5f21fd00ed for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$EndOfStreamException: Unable to read additional data from server sessionid 0x1003c5f21fd00ed, likely server has closed socket
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:77)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 19:13:40 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 19:13:40 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 19:13:40 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 19:13:40 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 19:13:40 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 19:13:40 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 19:13:40 - GesZook - Evento recebido: WatchedEvent state:Disconnected type:None path:null
+2024-06-15 19:13:40 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 19:13:40 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 19:13:40 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 19:13:40 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 19:13:40 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 19:13:41 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 19:13:41 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 19:13:41 - Socket connection established, initiating session, client: /192.168.1.5:27962, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 19:13:41 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ed has expired
+2024-06-15 19:13:41 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 19:13:41 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 19:13:41 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 19:13:41 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 19:13:41 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 19:13:41 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 19:13:41 - Session 0x1003c5f21fd00ed for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ed has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 19:13:41 - GesZook - Evento recebido: WatchedEvent state:Expired type:None path:null
+2024-06-15 19:13:41 - GesZook - Sessão expirou, tentando reconectar...
+2024-06-15 19:13:41 - GesZook - Tentando conectar ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 19:13:41 - Initiating client connection, connectString=192.168.1.239:2181 sessionTimeout=60000 watcher=com.example.chat_hub.zookeeper.GerenciadorZooKeeper@37c7766e
+2024-06-15 19:13:41 - jute.maxbuffer value is 1048575 Bytes
+2024-06-15 19:13:41 - zookeeper.request.timeout value is 0. feature enabled=false
+2024-06-15 19:13:41 - GesZook - Conectado ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 19:13:41 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 19:13:41 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 19:13:41 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 19:13:41 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 19:13:41 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 19:13:41 - EventThread shut down for session: 0x1003c5f21fd00ed
+2024-06-15 19:13:41 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 19:13:41 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 19:13:41 - Socket connection established, initiating session, client: /192.168.1.5:27963, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 19:13:41 - Session establishment complete on server raspberrypi.home/192.168.1.239:2181, session id = 0x1003c5f21fd00ee, negotiated timeout = 40000
+2024-06-15 19:13:41 - GesZook - Evento recebido: WatchedEvent state:SyncConnected type:None path:null
+2024-06-15 19:13:41 - GesZook - Conexão reestabelecida. Re-armando watchers.
+2024-06-15 19:13:41 - GesZook - Monitorando utilizadores em: /utilizadores
+2024-06-15 19:13:41 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 19:13:41 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 19:13:41 - GesZook - Monitorando sala: teste
+2024-06-15 19:13:41 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 19:13:42 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 19:13:42 - GesZook - Monitorando sala: teste
+2024-06-15 19:13:42 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 19:13:42 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 19:13:42 - GesZook - Monitorando sala: teste
+2024-06-15 19:13:42 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 20:21:52 - Client session timed out, have not heard from server in 4076997ms for session id 0x1003c5f21fd00ee
+2024-06-15 20:21:52 - Session 0x1003c5f21fd00ee for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionTimeoutException: Client session timed out, have not heard from server in 4076997ms for session id 0x1003c5f21fd00ee
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1258)
+2024-06-15 20:21:52 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 20:21:52 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 20:21:52 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 20:21:52 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 20:21:52 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 20:21:52 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 20:21:52 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 20:21:52 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 20:21:52 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 20:21:52 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 20:21:52 - GesZook - Evento recebido: WatchedEvent state:Disconnected type:None path:null
+2024-06-15 20:21:52 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 20:21:54 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 20:21:54 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 20:21:54 - Socket connection established, initiating session, client: /192.168.1.5:28397, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 20:21:54 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ee has expired
+2024-06-15 20:21:54 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 20:21:54 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 20:21:54 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 20:21:54 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 20:21:54 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 20:21:54 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 20:21:54 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 20:21:54 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 20:21:54 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 20:21:54 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 20:21:54 - GesZook - Evento recebido: WatchedEvent state:Expired type:None path:null
+2024-06-15 20:21:54 - Session 0x1003c5f21fd00ee for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ee has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 20:21:54 - GesZook - Sessão expirou, tentando reconectar...
+2024-06-15 20:21:54 - GesZook - Tentando conectar ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 20:21:54 - Initiating client connection, connectString=192.168.1.239:2181 sessionTimeout=60000 watcher=com.example.chat_hub.zookeeper.GerenciadorZooKeeper@37c7766e
+2024-06-15 20:21:54 - jute.maxbuffer value is 1048575 Bytes
+2024-06-15 20:21:54 - zookeeper.request.timeout value is 0. feature enabled=false
+2024-06-15 20:21:54 - GesZook - Conectado ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 20:21:54 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 20:21:54 - EventThread shut down for session: 0x1003c5f21fd00ee
+2024-06-15 20:21:54 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 20:21:54 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 20:21:54 - Socket connection established, initiating session, client: /192.168.1.5:28398, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 20:21:54 - Session establishment complete on server raspberrypi.home/192.168.1.239:2181, session id = 0x1003c5f21fd00ef, negotiated timeout = 40000
+2024-06-15 20:21:54 - GesZook - Evento recebido: WatchedEvent state:SyncConnected type:None path:null
+2024-06-15 20:21:54 - GesZook - Conexão reestabelecida. Re-armando watchers.
+2024-06-15 20:21:54 - GesZook - Monitorando utilizadores em: /utilizadores
+2024-06-15 20:21:54 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 20:21:54 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 20:21:54 - GesZook - Monitorando sala: teste
+2024-06-15 20:21:54 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 20:21:55 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 20:21:55 - GesZook - Monitorando sala: teste
+2024-06-15 20:21:55 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 20:21:55 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 20:21:55 - GesZook - Monitorando sala: teste
+2024-06-15 20:21:55 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 22:26:20 - Client session timed out, have not heard from server in 7464725ms for session id 0x1003c5f21fd00ef
+2024-06-15 22:26:20 - Session 0x1003c5f21fd00ef for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionTimeoutException: Client session timed out, have not heard from server in 7464725ms for session id 0x1003c5f21fd00ef
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1258)
+2024-06-15 22:26:20 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 22:26:20 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 22:26:20 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 22:26:20 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 22:26:20 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 22:26:20 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 22:26:20 - GesZook - Evento recebido: WatchedEvent state:Disconnected type:None path:null
+2024-06-15 22:26:20 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 22:26:20 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 22:26:20 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 22:26:20 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 22:26:20 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 22:26:21 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 22:26:21 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 22:26:21 - Socket connection established, initiating session, client: /192.168.1.5:28634, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 22:26:21 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ef has expired
+2024-06-15 22:26:21 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 22:26:21 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 22:26:21 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 22:26:21 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 22:26:21 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 22:26:21 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 22:26:21 - GesZook - Evento recebido: WatchedEvent state:Expired type:None path:null
+2024-06-15 22:26:21 - GesZook - Sessão expirou, tentando reconectar...
+2024-06-15 22:26:21 - GesZook - Tentando conectar ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 22:26:21 - Session 0x1003c5f21fd00ef for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00ef has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 22:26:21 - Initiating client connection, connectString=192.168.1.239:2181 sessionTimeout=60000 watcher=com.example.chat_hub.zookeeper.GerenciadorZooKeeper@37c7766e
+2024-06-15 22:26:21 - jute.maxbuffer value is 1048575 Bytes
+2024-06-15 22:26:21 - zookeeper.request.timeout value is 0. feature enabled=false
+2024-06-15 22:26:21 - GesZook - Conectado ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 22:26:21 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 22:26:21 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 22:26:21 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 22:26:21 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 22:26:21 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 22:26:21 - EventThread shut down for session: 0x1003c5f21fd00ef
+2024-06-15 22:26:22 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 22:26:22 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 22:26:22 - Socket connection established, initiating session, client: /192.168.1.5:28636, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 22:26:22 - Session establishment complete on server raspberrypi.home/192.168.1.239:2181, session id = 0x1003c5f21fd00f0, negotiated timeout = 40000
+2024-06-15 22:26:22 - GesZook - Evento recebido: WatchedEvent state:SyncConnected type:None path:null
+2024-06-15 22:26:22 - GesZook - Conexão reestabelecida. Re-armando watchers.
+2024-06-15 22:26:22 - GesZook - Monitorando utilizadores em: /utilizadores
+2024-06-15 22:26:22 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 22:26:22 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 22:26:22 - GesZook - Monitorando sala: teste
+2024-06-15 22:26:22 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 22:26:22 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 22:26:22 - GesZook - Monitorando sala: teste
+2024-06-15 22:26:22 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 22:26:22 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 22:26:22 - GesZook - Monitorando sala: teste
+2024-06-15 22:26:22 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 23:29:12 - Session 0x1003c5f21fd00f0 for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$EndOfStreamException: Unable to read additional data from server sessionid 0x1003c5f21fd00f0, likely server has closed socket
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:77)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 23:29:12 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 23:29:12 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 23:29:12 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 23:29:12 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 23:29:12 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 23:29:12 - GesZook - Evento recebido: WatchedEvent state:Disconnected type:None path:null
+2024-06-15 23:29:12 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 23:29:12 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 23:29:12 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 23:29:12 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 23:29:12 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 23:29:12 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 23:29:14 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 23:29:14 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 23:29:14 - Socket connection established, initiating session, client: /192.168.1.5:28976, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 23:29:14 - Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00f0 has expired
+2024-06-15 23:29:14 - Session 0x1003c5f21fd00f0 for sever raspberrypi.home/192.168.1.239:2181, Closing socket connection. Attempting reconnect except it is a SessionExpiredException.
+org.apache.zookeeper.ClientCnxn$SessionExpiredException: Unable to reconnect to ZooKeeper service, session 0x1003c5f21fd00f0 has expired
+	at org.apache.zookeeper.ClientCnxn$SendThread.onConnected(ClientCnxn.java:1434)
+	at org.apache.zookeeper.ClientCnxnSocket.readConnectResult(ClientCnxnSocket.java:154)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doIO(ClientCnxnSocketNIO.java:86)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:350)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1290)
+2024-06-15 23:29:14 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 23:29:14 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 23:29:14 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 23:29:14 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 23:29:14 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 23:29:14 - GesZook - Evento recebido: WatchedEvent state:Expired type:None path:null
+2024-06-15 23:29:14 - GesZook - Sessão expirou, tentando reconectar...
+2024-06-15 23:29:14 - GesZook - Tentando conectar ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 23:29:14 - Initiating client connection, connectString=192.168.1.239:2181 sessionTimeout=60000 watcher=com.example.chat_hub.zookeeper.GerenciadorZooKeeper@37c7766e
+2024-06-15 23:29:14 - jute.maxbuffer value is 1048575 Bytes
+2024-06-15 23:29:14 - zookeeper.request.timeout value is 0. feature enabled=false
+2024-06-15 23:29:14 - GesZook - Conectado ao ZooKeeper em: 192.168.1.239:2181
+2024-06-15 23:29:14 - Evento detectado em monitorarEstadoUtilizador para utilizador: Ana
+2024-06-15 23:29:14 - Evento detectado em monitorarEstadoUtilizador para utilizador: Bruno
+2024-06-15 23:29:14 - GesZook - Evento detectado em monitorarSala: None
+2024-06-15 23:29:14 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 23:29:14 - GesZook - Evento detectado em monitorarUtilizadores: None
+2024-06-15 23:29:14 - GesZook - Evento detectado em monitorarMensagens: None
+2024-06-15 23:29:14 - EventThread shut down for session: 0x1003c5f21fd00f0
+2024-06-15 23:29:14 - Opening socket connection to server raspberrypi.home/192.168.1.239:2181.
+2024-06-15 23:29:14 - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2024-06-15 23:29:14 - Socket connection established, initiating session, client: /192.168.1.5:28978, server: raspberrypi.home/192.168.1.239:2181
+2024-06-15 23:29:14 - Session establishment complete on server raspberrypi.home/192.168.1.239:2181, session id = 0x1003c5f21fd00f1, negotiated timeout = 40000
+2024-06-15 23:29:14 - GesZook - Evento recebido: WatchedEvent state:SyncConnected type:None path:null
+2024-06-15 23:29:14 - GesZook - Conexão reestabelecida. Re-armando watchers.
+2024-06-15 23:29:14 - GesZook - Monitorando utilizadores em: /utilizadores
+2024-06-15 23:29:15 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 23:29:15 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 23:29:15 - GesZook - Monitorando sala: teste
+2024-06-15 23:29:15 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 23:29:15 - GesZook - Monitorando estado de utilizador: Bruno
+2024-06-15 23:29:15 - GesZook - Monitorando sala: teste
+2024-06-15 23:29:15 - GesZook - Monitorando mensagens da sala: teste
+2024-06-15 23:29:15 - GesZook - Monitorando estado de utilizador: Ana
+2024-06-15 23:29:15 - GesZook - Monitorando sala: teste
+2024-06-15 23:29:15 - GesZook - Monitorando mensagens da sala: teste

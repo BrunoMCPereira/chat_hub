@@ -24,7 +24,6 @@
             <p></p>
             <p></p>
             <a href="/alterar-registo" class="btn btn-secondary mt-3">Alterar Registo</a>
-
         </div>
         <div class="content">
             <div class="chat-history" id="chatHistory"></div>
@@ -33,20 +32,15 @@
                 <button type="button" class="btn btn-primary" onclick="sendMessage()">Enviar</button>
             </div>
             <div id="chatParticipants" style="margin-top: 10px;"></div>
-            <div id="newChatContainer" style="display:none; margin-top: 10px;">
+            <div id="newChatContainer" style="margin-top: 10px; display: none;">
                 <input type="text" id="newChatName" class="form-control" placeholder="Nome do chat">
                 <button id="createChatButton" class="btn btn-primary" onclick="criarChat()">Criar Chat</button>
             </div>
-
         </div>
         <div class="sidebar">
             <h4>As tuas Conversas:</h4>
             <ul id="listaSalas"></ul>
             <h3 id="nomeDestinatario"></h3>
-            <p></p>
-            <p></p>
-            <button id="criarChatBtn" class="btn btn-primary" style="display:none;" onclick="criarChat()">Criar Chat</button>
-            <p></p>
             <p></p>
             <button class="logout-button" onclick="logout()">Logout</button>
         </div>

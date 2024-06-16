@@ -67,24 +67,25 @@ public class ServicoChat {
         return gerenciadorZooKeeper.listarMensagensPorSala(nomeSala);
     }
 
-    public void adicionarMensagem(String sala, String conteudoMensagem, String remetente) {
+    public void adicionarMensagem(String sala, String conteudoMensagem, String remetente, String dataCriacao) {
         // Adicionar a mensagem ao ZooKeeper
-        gerenciadorZooKeeper.adicionarMensagem(sala, conteudoMensagem, remetente);
+        gerenciadorZooKeeper.adicionarMensagem(sala, conteudoMensagem, remetente, dataCriacao);
 
         // Criar o objeto mensagem
         Mensagem mensagem = new Mensagem();
         mensagem.setConteudo(conteudoMensagem);
         mensagem.setNomeSala(sala);
         mensagem.setRemetente(remetente);
-        mensagem.setTimestamp(LocalDateTime.now());
+        mensagem.setDataCriacao(dataCriacao);
 
         // Tentar enviar a mensagem e capturar possíveis exceções
         try {
             gerenciadorZooKeeper.enviarMensagem(mensagem);
-            System.out.println("Mensagem adicionada na sala '" + sala + "'.");
+            System.out.println("ServicoChat - Mensagem adicionada na sala '" + sala + "'.");
         } catch (Exception e) { // Use Exception para capturar todas as exceções possíveis se você não sabe
                                 // exatamente quais exceções são lançadas
             e.printStackTrace();
         }
     }
+
 }

@@ -6,6 +6,7 @@ body, html {
     align-items: center;
     justify-content: center;
     text-align: center;
+    font-family: Arial, sans-serif; /* Adicionado para uma melhor legibilidade */
 }
 
 .container {
@@ -57,7 +58,7 @@ button.button-voltar {
 .chat-container {
     display: flex;
     height: 100vh;
-    width: 200%; /* Expande a largura da página */
+    width: 100%; /* Ajuste conforme necessário */
 }
 
 .sidebar {
@@ -67,6 +68,7 @@ button.button-voltar {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-right: 1px solid #dee2e6; /* Adicionado para separar a sidebar */
 }
 
 .content {
@@ -80,6 +82,7 @@ button.button-voltar {
     background-color: #fff;
     border: 1px solid #dee2e6;
     padding: 10px;
+    border-radius: 5px; /* Adicionado para arredondar as bordas */
 }
 
 .message {
@@ -89,6 +92,18 @@ button.button-voltar {
     display: inline-block;
     max-width: 80%;
     word-wrap: break-word;
+    position: relative; /* Necessário para posicionamento absoluto do cabeçalho */
+}
+
+.message-header {
+    font-size: 10px; /* Tamanho menor para o cabeçalho */
+    color: white; /* Cor cinza para distinção */
+    margin-bottom: 5px;
+}
+
+.message-content {
+    margin-top: 2px;
+    font-size: 14px;
 }
 
 .outgoing {
@@ -185,6 +200,7 @@ button.button-voltar {
 .mensagem-sucesso {
     color: green;
 }
+
 .mensagem-erro {
     color: red;
 }
@@ -202,4 +218,29 @@ button.button-voltar {
 
 #utilizadoresOffline li {
     color: gray; /* Cor cinza para indicar offline */
+}
+
+.sala-button {
+    background-color: white;
+    border: 1px solid green;
+    color: black;
+    padding: 5px 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.sala-button.selected {
+    background-color: green;
+    color: white;
+}
+
+.sala-button:hover {
+    background-color: lightgreen;
 }

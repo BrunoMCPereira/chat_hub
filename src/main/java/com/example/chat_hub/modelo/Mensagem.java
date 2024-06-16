@@ -12,7 +12,7 @@ public class Mensagem {
     private String conteudo;
     private String nomeSala;
     private String remetente;
-    private LocalDateTime timestamp;
+    private String dataCriacao;
 
     // Getters e setters
     public String getId() {
@@ -47,11 +47,12 @@ public class Mensagem {
         this.remetente = remetente;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public String getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public void setDataCriacao(String dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
+
 }
