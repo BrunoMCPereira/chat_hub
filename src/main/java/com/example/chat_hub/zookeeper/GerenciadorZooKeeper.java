@@ -61,36 +61,37 @@ public class GerenciadorZooKeeper implements Watcher {
         resetarBasesDeDadosMongoDB();
     }
 
-    // Conecta ao servidor ZooKeeper
     private void conectar() {
         try {
+            logger.info("GesZook - Tentando conectar ao ZooKeeper em: " + zookeeperServer);
             this.zooKeeper = new ZooKeeper(zookeeperServer, sessionTimeout, this);
+            logger.info("GesZook - Conectado ao ZooKeeper em: " + zookeeperServer);
         } catch (IOException e) {
-            logger.error("Erro de IO ao conectar ao servidor ZooKeeper", e);
+            logger.error("GesZook - Erro de IO ao conectar ao servidor ZooKeeper", e);
         }
     }
 
-    // Reconecta ao servidor ZooKeeper em caso de falha
     private void reconectar() {
         try {
             this.zooKeeper.close();
             conectar();
         } catch (InterruptedException e) {
-            logger.error("Erro ao reconectar ao ZooKeeper", e);
+            logger.error("GesZook - Erro ao reconectar ao ZooKeeper", e);
         }
     }
 
-    // Lida com eventos do ZooKeeper
     @Override
     public void process(WatchedEvent event) {
+        logger.info("GesZook - Evento recebido: " + event);
         if (event.getState() == Event.KeeperState.Expired) {
+            logger.warn("GesZook - Sessão expirou, tentando reconectar...");
             reconectar();
         } else if (event.getState() == Event.KeeperState.SyncConnected) {
+            logger.info("GesZook - Conexão reestabelecida. Re-armando watchers.");
             rearmarWatchers();
         }
     }
 
-    // Rearma os watchers após reconexão
     private void rearmarWatchers() {
         monitorarUtilizadores();
         List<String> salas = listarSalas();
@@ -109,7 +110,6 @@ public class GerenciadorZooKeeper implements Watcher {
         }
     }
 
-    // Cria as bases de dados no ZooKeeper
     private void criarBasesDeDadosNoZooKeeper() {
         try {
             if (zooKeeper.exists("/utilizadores", false) == null) {
@@ -119,11 +119,10 @@ public class GerenciadorZooKeeper implements Watcher {
                 zooKeeper.create("/chats", new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao criar bases de dados no ZooKeeper", e);
+            logger.error("GesZook - Erro ao criar bases de dados no ZooKeeper", e);
         }
     }
 
-    // Limpa as bases de dados no ZooKeeper
     private void limparBasesDeDadosNoZooKeeper() {
         try {
             if (zooKeeper.exists("/utilizadores", false) != null) {
@@ -152,30 +151,27 @@ public class GerenciadorZooKeeper implements Watcher {
                 zooKeeper.delete("/chats", -1);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao limpar bases de dados no ZooKeeper", e);
+            logger.error("GesZook - Erro ao limpar bases de dados no ZooKeeper", e);
         }
     }
 
-    // Reseta as bases de dados no ZooKeeper
     private void resetarBasesDeDadosNoZooKeeper() {
         limparBasesDeDadosNoZooKeeper();
         criarBasesDeDadosNoZooKeeper();
     }
 
-    // Limpa as bases de dados no MongoDB
     private void limparBasesDeDadosMongoDB() {
         repositorioUtilizador.deleteAll();
         repositorioChat.deleteAll();
         repositorioMensagem.deleteAll();
     }
 
-    // Reseta as bases de dados no MongoDB
     private void resetarBasesDeDadosMongoDB() {
         limparBasesDeDadosMongoDB();
     }
 
     // -------------------------- MONGODB ---------------------------------//
-    // Funções para operações de escrita no MongoDB
+    // -- -- -- -- -- -- -- -- -- Escrita -- -- -- -- -- -- -- -- -- -- -- //
 
     public void registrarUsuario(Utilizador utilizador) {
         repositorioUtilizador.save(utilizador);
@@ -210,8 +206,7 @@ public class GerenciadorZooKeeper implements Watcher {
         repositorioMensagem.save(mensagem);
     }
 
-    // -------------------------- Leitura ---------------------------------//
-    // Funções para operações de leitura no MongoDB
+    // -- -- -- -- -- -- -- -- -- Leitura -- -- -- -- -- -- -- -- -- -- -- //
 
     public boolean validarUsuario(String nomeUtilizador, String senha) {
         List<Utilizador> utilizadores = repositorioUtilizador.findByNomeUtilizador(nomeUtilizador);
@@ -266,22 +261,21 @@ public class GerenciadorZooKeeper implements Watcher {
     }
 
     // ------------------------ ZOOKEEPER -------------------------------//
-    // Funções para operações de escrita no ZooKeeper
+    // -- -- -- -- -- -- -- -- -- Escrita -- -- -- -- -- -- -- -- -- -- -- //
 
-    // Registra um novo usuário no ZooKeeper
     public void registrarNovoUsuario(String nomeUtilizador) {
         String userPath = "/utilizadores/" + nomeUtilizador;
         String statePath = userPath + "/estado";
         try {
             zooKeeper.create(userPath, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             zooKeeper.create(statePath, "offline".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+            logger.info("GesZook - Utilizador " + nomeUtilizador + " registrado como 'offline'.");
             configuracaoWebSocket.notificarMudancaEstadoUtilizadores(); // Notifica todos os clientes
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao registrar novo utilizador " + nomeUtilizador, e);
+            logger.error("GesZook - Erro ao registrar novo utilizador " + nomeUtilizador, e);
         }
     }
 
-    // Atualiza o estado do usuário no ZooKeeper
     public void atualizarEstadoUtilizador(String nomeUtilizador, String estado) {
         String statePath = "/utilizadores/" + nomeUtilizador + "/estado";
         try {
@@ -289,11 +283,10 @@ public class GerenciadorZooKeeper implements Watcher {
                 zooKeeper.setData(statePath, estado.getBytes(), -1);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao atualizar estado do utilizador no ZooKeeper", e);
+            logger.error("GesZook - Erro ao atualizar estado do utilizador no ZooKeeper", e);
         }
     }
 
-    // Apaga um usuário do ZooKeeper
     public void apagarUtilizador(String nomeUtilizador) {
         String path = "/utilizadores/" + nomeUtilizador;
         try {
@@ -302,11 +295,10 @@ public class GerenciadorZooKeeper implements Watcher {
                 zooKeeper.delete(path, -1);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao apagar utilizador no ZooKeeper", e);
+            logger.error("GesZook - Erro ao apagar utilizador no ZooKeeper", e);
         }
     }
 
-    // Cria uma nova sala de chat no ZooKeeper
     public void criarSalaDeChat(String nomeSala, List<String> participantes) {
         String path = "/chats/" + nomeSala;
         try {
@@ -319,13 +311,13 @@ public class GerenciadorZooKeeper implements Watcher {
                     String participantePath = path + "/participantes/" + participante;
                     zooKeeper.create(participantePath, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
                 }
+                configuracaoWebSocket.notificarClientesSobreMudancaDeSala(nomeSala); // Notificar mudança na sala
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao criar sala de chat no ZooKeeper", e);
+            logger.error("GesZook - Erro ao criar sala de chat no ZooKeeper", e);
         }
     }
 
-    // Faz um usuário entrar em uma sala no ZooKeeper
     public void entrarSala(String sala, String utilizador) {
         String path = String.format("/chats/%s/participantes/%s", sala, utilizador);
         try {
@@ -336,7 +328,6 @@ public class GerenciadorZooKeeper implements Watcher {
         }
     }
 
-    // Faz um usuário sair de uma sala no ZooKeeper
     public void sairSala(String sala, String utilizador) {
         String path = String.format("/chats/%s/participantes/%s", sala, utilizador);
         try {
@@ -345,14 +336,15 @@ public class GerenciadorZooKeeper implements Watcher {
                 notificarParticipantesDaSala(sala); // Notificar participantes da saída da sala
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao sair da sala no ZooKeeper", e);
+            logger.error("GesZook - Erro ao sair da sala no ZooKeeper", e);
         }
     }
 
-    // Adiciona uma mensagem a uma sala no ZooKeeper
     public void adicionarMensagem(String sala, String conteudoMensagem, String remetente, String dataCriacao) {
         String path = String.format("/chats/%s/mensagens/mensagem_", sala);
         try {
+            logger.debug(" adicionarMensagem Adicionando mensagem na sala: {}", sala);
+
             Mensagem mensagem = new Mensagem();
             mensagem.setConteudo(conteudoMensagem);
             mensagem.setNomeSala(sala);
@@ -360,19 +352,20 @@ public class GerenciadorZooKeeper implements Watcher {
             mensagem.setDataCriacao(dataCriacao);
 
             String mensagemJson = objectMapper.writeValueAsString(mensagem);
+            logger.debug("adicionarMensagem - Mensagem serializada: {}", mensagemJson);
 
             String createdPath = zooKeeper.create(path, mensagemJson.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
                     CreateMode.PERSISTENT_SEQUENTIAL);
+            logger.debug(" adicionarMensagem - Mensagem criada no ZNode com o caminho: {}", createdPath);
 
-            // Remover a linha abaixo para evitar duplicação de notificações
-            // configuracaoWebSocket.enviarNotificacaoNovaMensagem(sala, mensagem);
+            configuracaoWebSocket.enviarNotificacaoNovaMensagem(sala, mensagem);
+            logger.debug(" adicionarMensagem Notificação de nova mensagem enviada para a sala: {}", sala);
         } catch (KeeperException | InterruptedException | IOException e) {
-            logger.error("Erro ao adicionar mensagem no ZooKeeper", e);
+            logger.error(" adicionarMensagem Erro ao adicionar mensagem no ZooKeeper", e);
         }
     }
 
-    // -------------------------- Leitura -------------------------------//
-    // Funções para operações de leitura no ZooKeeper
+    // -- -- -- -- -- -- -- -- -- Leitura -- -- -- -- -- -- -- -- -- -- -- //
 
     public List<String> listarSalasPorParticipante(String nomeUtilizador) {
         String path = "/chats";
@@ -390,7 +383,7 @@ public class GerenciadorZooKeeper implements Watcher {
                 }
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao listar salas por participante no ZooKeeper", e);
+            logger.error("GesZook - Erro ao listar salas por participante no ZooKeeper", e);
         }
         return salas;
     }
@@ -408,7 +401,7 @@ public class GerenciadorZooKeeper implements Watcher {
                 }
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao listar utilizadores por status no ZooKeeper", e);
+            logger.error("GesZook - Erro ao listar utilizadores por status no ZooKeeper", e);
         }
         return utilizadores;
     }
@@ -428,13 +421,12 @@ public class GerenciadorZooKeeper implements Watcher {
                 mensagens.add(mensagem);
             }
         } catch (KeeperException | InterruptedException | IOException e) {
-            logger.error("Erro ao listar mensagens por sala no ZooKeeper", e);
+            logger.error("GesZook - Erro ao listar mensagens por sala no ZooKeeper", e);
         }
         return mensagens;
     }
 
-    // -------------------------- Notificações -------------------------------//
-    // Notifica os participantes da sala sobre mudanças
+    // -- -- -- -- -- -- -- -- -- Notificações -- -- -- -- -- -- -- -- -- -- -- //
 
     private void notificarParticipantesDaSala(String sala) {
         String path = String.format("/chats/%s/participantes", sala);
@@ -444,11 +436,10 @@ public class GerenciadorZooKeeper implements Watcher {
                 configuracaoWebSocket.notificarClientes("mudanca_participantes_chat", sala, null);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao notificar participantes da sala no ZooKeeper", e);
+            logger.error("GesZook - Erro ao notificar participantes da sala no ZooKeeper", e);
         }
     }
 
-    // Notifica sobre novas mensagens na sala
     private void notificarMensagensDaSala(String sala, Mensagem mensagem) {
         String path = String.format("/chats/%s/participantes", sala);
         try {
@@ -457,7 +448,7 @@ public class GerenciadorZooKeeper implements Watcher {
                 configuracaoWebSocket.notificarClientes("nova_mensagem", sala, mensagem);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao notificar sobre novas mensagens no ZooKeeper", e);
+            logger.error("GesZook - Erro ao notificar sobre novas mensagens no ZooKeeper", e);
         }
     }
 
@@ -470,68 +461,78 @@ public class GerenciadorZooKeeper implements Watcher {
                 salas = zooKeeper.getChildren(path, false);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao listar salas no ZooKeeper", e);
+            logger.error("GesZook - Erro ao listar salas no ZooKeeper", e);
         }
         return salas;
     }
 
-    // Monitoramento de utilizadores no ZooKeeper
     public void monitorarUtilizadores() {
         String path = "/utilizadores";
+        logger.info("GesZook - Iniciando monitoramento de utilizadores no caminho: " + path);
         try {
             Stat stat = zooKeeper.exists(path, true); // Adicionando watcher no path
             if (stat != null) {
                 List<String> utilizadores = zooKeeper.getChildren(path, event -> {
+                    logger.info("GesZook - Evento recebido em monitorarUtilizadores: " + event);
                     if (event.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+                        logger.info("GesZook - Detecção de mudança na lista de utilizadores");
                         configuracaoWebSocket.notificarMudancaEstadoUtilizadores();
                         monitorarUtilizadores(); // Rearmar o watcher após um evento
                     }
                 });
                 utilizadores.forEach(this::monitorarEstadoUtilizador);
+            } else {
+                logger.warn("GesZook - Nenhum nó encontrado em: " + path);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Falha ao monitorar utilizadores", e);
+            logger.error("GesZook - Falha ao monitorar utilizadores", e);
         }
     }
 
-    // Monitoramento do estado dos utilizadores
     public void monitorarEstadoUtilizador(String utilizador) {
         String path = "/utilizadores/" + utilizador + "/estado";
+        logger.info("GesZook - Iniciando monitoramento do estado do utilizador: " + utilizador);
         try {
             // Adiciona um watcher permanente ao estado do utilizador
             Stat stat = zooKeeper.exists(path, true);
             if (stat != null) {
                 zooKeeper.getData(path, event -> {
                     if (event.getType() == Watcher.Event.EventType.NodeDataChanged) {
+                        logger.info("GesZook - Estado do utilizador " + utilizador + " mudou.");
+                        // Notifica todos os clientes para atualizar a lista de estados dos utilizadores
                         configuracaoWebSocket.notificarMudancaEstadoUtilizadores();
                         monitorarEstadoUtilizador(utilizador); // Rearma o watcher
                     }
                 }, null);
+            } else {
+                logger.warn("GesZook - Estado não encontrado para: " + utilizador);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao monitorar estado do utilizador " + utilizador, e);
+            logger.error("GesZook - Erro ao monitorar estado do utilizador " + utilizador, e);
         }
     }
 
-    // Monitoramento de uma sala no ZooKeeper
     public void monitorarSala(String sala) {
         String path = "/chats/" + sala + "/participantes";
+        logger.info("GesZook - Monitorando sala: " + sala);
         try {
             Stat stat = zooKeeper.exists(path, false);
             if (stat != null) {
                 zooKeeper.getChildren(path, event -> {
+                    logger.info("GesZook - Evento detectado em monitorarSala: " + event.getType());
                     if (event.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
                         configuracaoWebSocket.notificarClientes("mudanca_participantes_chat", sala);
                         monitorarSala(sala);
                     }
                 });
+            } else {
+                logger.warn("GesZook - Caminho não existe para monitorar sala: " + sala);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao monitorar sala: " + sala, e);
+            logger.error("GesZook - Erro ao monitorar sala: " + sala, e);
         }
     }
 
-    // Monitoramento de mensagens em uma sala no ZooKeeper
     public void monitorarMensagens(String sala) {
         String path = "/chats/" + sala + "/mensagens";
         try {
@@ -540,6 +541,7 @@ public class GerenciadorZooKeeper implements Watcher {
                 zooKeeper.getChildren(path, new Watcher() {
                     public void process(WatchedEvent event) {
                         if (event.getType() == Watcher.Event.EventType.NodeChildrenChanged) {
+                            logger.info("Nova mensagem detectada na sala: " + sala);
                             // Tentativa de recuperar a última mensagem adicionada e notificar
                             try {
                                 List<String> children = zooKeeper.getChildren(path, false);
@@ -562,7 +564,6 @@ public class GerenciadorZooKeeper implements Watcher {
         }
     }
 
-    // Lista todos os utilizadores no ZooKeeper
     public List<String> listarUtilizadores() {
         String path = "/utilizadores";
         List<String> utilizadores = new ArrayList<>();
@@ -572,7 +573,7 @@ public class GerenciadorZooKeeper implements Watcher {
                 utilizadores = zooKeeper.getChildren(path, false);
             }
         } catch (KeeperException | InterruptedException e) {
-            logger.error("Erro ao listar utilizadores no ZooKeeper", e);
+            logger.error("GesZook - Erro ao listar utilizadores no ZooKeeper", e);
         }
         return utilizadores;
     }
